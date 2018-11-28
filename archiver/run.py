@@ -9,9 +9,9 @@ class Archiver(scrapy.Spider):
     start_urls = [config.host + config.uri]
 
     def parse(self, response):
-        for file in response.css("li.gallerybox"):
+        for file_ in response.css("li.gallerybox"):
             break  # TODO: Re-enable for downloading all files + filter
-            yield scrapy.Request(url=config.host + file.css("a::attr(href)").extract_first(),
+            yield scrapy.Request(url=config.host + file_.css("a::attr(href)").extract_first(),
                                  callback=self.save_pdf)
         next_page = response.css("a.mw-nextlink::attr(href)").extract_first()
         if next_page:
